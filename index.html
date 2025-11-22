@@ -1,46 +1,905 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>James Cai - Software Engineer & Builder</title>
+  <meta name="description" content="CS student at UWaterloo. Incoming SWE intern at Shopify. Interested in systems, infra, and shipping products fast.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fdf8f3;
+      --bg-warm: #faf4ed;
+      --text: #5c4a3d;
+      --text-dark: #3d2e23;
+      --text-muted: #8b7355;
+      --text-light: #b8a089;
+      --border: #e8ddd0;
+      --border-hover: #d4c4b0;
+      --accent: #c4704b;
+      --accent-hover: #a85a3a;
+      --accent-soft: #e89b7b;
+      --card-bg: #fffcf9;
+      --tab-bg: #f5ebe0;
+      --tab-active-bg: #fffcf9;
+      --shadow-soft: rgba(92, 74, 61, 0.06);
+      --shadow-warm: rgba(196, 112, 75, 0.08);
+      --dot-color: #e0d5c8;
+    }
+
+    [data-theme="dark"] {
+      --bg: #1e2028;
+      --bg-warm: #242830;
+      --text: #c0c5d0;
+      --text-dark: #e0e4f0;
+      --text-muted: #808898;
+      --text-light: #4a5060;
+      --border: #343842;
+      --border-hover: #444a55;
+      --accent: #6b8cce;
+      --accent-hover: #8aa8e0;
+      --accent-soft: #4a6aa8;
+      --card-bg: #262a32;
+      --tab-bg: #2a2e38;
+      --tab-active-bg: #262a32;
+      --shadow-soft: rgba(0, 0, 0, 0.3);
+      --shadow-warm: rgba(107, 140, 206, 0.08);
+      --dot-color: #343842;
+    }
+
+    [data-theme="dark"] .name {
+      color: #8aa8e0;
+    }
+
+    [data-theme="dark"] .warm-overlay {
+      display: none;
+    }
+
+    /* Custom cursor */
+    * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23c4704b' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%23c4704b'/%3E%3C/svg%3E") 12 12, auto;
+    }
+
+    a, button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23e89b7b' opacity='0.4'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23c4704b'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+
+    body {
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .cozy-background {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.5;
+      transition: background-image 0.3s ease;
+    }
+
+    .warm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(ellipse at top right, rgba(232, 155, 123, 0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom left, rgba(196, 112, 75, 0.05) 0%, transparent 50%);
+      transition: background 0.3s ease;
+    }
+
+    [data-theme="dark"] .warm-overlay {
+      background: radial-gradient(ellipse at top right, rgba(107, 140, 206, 0.05) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom left, rgba(70, 100, 160, 0.03) 0%, transparent 50%);
+    }
+
+    [data-theme="dark"] .name {
+      color: #8aa8e0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* Card with entrance animation */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px var(--shadow-soft), 0 8px 40px var(--shadow-warm);
+      overflow: hidden;
+      animation: cardEntrance 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--card-bg) 100%);
+    }
+
+    @media (min-width: 640px) {
+      .header {
+        padding: 1.75rem;
+      }
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .header-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 1rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #b56340;
+      letter-spacing: -0.02em;
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    @media (min-width: 640px) {
+      .name { font-size: 1.6rem; }
+    }
+
+    /* Tabs with underline animation */
+    .tabs {
+      display: flex;
+      background: var(--tab-bg);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 2px;
+    }
+
+    .tab {
+      padding: 0.5rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Sora', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .tab:hover {
+      color: var(--text-dark);
+      background: rgba(255,255,255,0.5);
+    }
+
+    .tab:hover::after {
+      width: 50%;
+    }
+
+    .tab.active {
+      background: var(--tab-active-bg);
+      color: var(--text-dark);
+      box-shadow: 0 2px 8px var(--shadow-soft);
+    }
+
+    .tab.active::after {
+      width: 70%;
+    }
+
+    /* Social links with bounce */
+    .social-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card-bg);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .social-link:hover {
+      color: var(--accent);
+      border-color: var(--accent-soft);
+      background: #fff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 16px var(--shadow-warm);
+    }
+
+    .social-link:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Content */
+    .content {
+      padding: 1.5rem;
+      max-height: 420px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    @media (min-width: 640px) {
+      .content { padding: 1.75rem; }
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeContent 0.35s ease;
+    }
+
+    @keyframes fadeContent {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sections with staggered entrance */
+    .section {
+      margin-bottom: 1.75rem;
+      animation: slideUp 0.5s ease-out backwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent-soft);
+      border-radius: 50%;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+    }
+
+    /* Greentext with hover effects */
+    .greentext {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    .greentext-line {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      padding: 0.2rem 0.4rem;
+      margin: 0 -0.4rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .greentext-line:hover {
+      background: rgba(196, 112, 75, 0.06);
+    }
+
+    .greentext-line .arrow {
+      color: var(--accent-soft);
+      flex-shrink: 0;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+
+    .greentext-line:hover .arrow {
+      color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    .greentext-line strong {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .greentext-line .date {
+      color: var(--text-light);
+      font-size: 0.72rem;
+      margin-left: 0.5rem;
+    }
+
+    /* Animated text links */
+    .text-link {
+      color: var(--accent);
+      text-decoration: none;
+      position: relative;
+      background: linear-gradient(var(--accent-soft), var(--accent-soft)) no-repeat;
+      background-size: 100% 1px;
+      background-position: 0 100%;
+      transition: all 0.3s ease;
+    }
+
+    .text-link:hover {
+      background-size: 100% 2px;
+      color: var(--accent-hover);
+    }
+
+    /* Project cards with lift effect */
+    .project-card {
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 0.85rem;
+      background: var(--bg-warm);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow-soft), 0 4px 8px var(--shadow-warm);
+    }
+
+    .project-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .project-title a {
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .project-title a:hover {
+      color: var(--accent);
+    }
+
+    .project-tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      background: var(--card-bg);
+      color: var(--text-muted);
+      border-radius: 6px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    .project-card:hover .project-tag {
+      background: var(--accent-soft);
+      color: white;
+      border-color: var(--accent-soft);
+    }
+
+    .project-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Footer illustration */
+    .footer-illustration {
+      position: fixed;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .footer-illustration svg {
+      width: 120px;
+      height: auto;
+    }
+
+    /* Custom scrollbar */
+    .content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    .content::-webkit-scrollbar-thumb:hover {
+      background: var(--border-hover);
+    }
+
+    /* Sparkle animation */
+    .sparkle {
+      display: inline-block;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.95); }
+    }
+
+    /* Theme toggle switch */
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 28px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .theme-switch .slider {
+      position: absolute;
+      inset: 0;
+      background: #f5ebe0;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .theme-switch .slider::before {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .theme-switch .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .theme-switch .sun {
+      left: 6px;
+      opacity: 1;
+    }
+
+    .theme-switch .moon {
+      right: 6px;
+      opacity: 0.4;
+    }
+
+    .theme-switch input:checked + .slider {
+      background: #1a1a20;
+      border-color: #3a3a48;
+    }
+
+    .theme-switch input:checked + .slider::before {
+      transform: translateX(24px);
+      background: #6b8cce;
+      box-shadow: 0 0 8px rgba(107, 140, 206, 0.5);
+    }
+
+    .theme-switch input:checked + .slider .sun {
+      opacity: 0.4;
+    }
+
+    .theme-switch input:checked + .slider .moon {
+      opacity: 1;
+    }
+
+    .theme-switch:hover .slider {
+      box-shadow: 0 2px 8px var(--shadow-warm);
+    }
+
+    /* Smooth theme transitions */
+    body, .card, .header, .content, .tab, .social-link, .project-card, .greentext-line {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Steam animation - slow wavy */
+    .steam {
+      transform-origin: bottom center;
+    }
+
+    .steam-1 { 
+      animation: steamWave1 10s ease-in-out infinite;
+    }
+    .steam-2 { 
+      animation: steamWave2 12s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    .steam-3 { 
+      animation: steamWave3 11s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    @keyframes steamWave1 {
+      0%, 100% { 
+        opacity: 0.25; 
+        transform: translateY(0) translateX(0); 
+      }
+      25% {
+        transform: translateY(-2px) translateX(2px);
+      }
+      50% { 
+        opacity: 0.6; 
+        transform: translateY(-4px) translateX(-1px); 
+      }
+      75% {
+        transform: translateY(-2px) translateX(1px);
+      }
+    }
+
+    @keyframes steamWave2 {
+      0%, 100% { 
+        opacity: 0.25; 
+        transform: translateY(0) translateX(0); 
+      }
+      25% {
+        transform: translateY(-3px) translateX(-2px);
+      }
+      50% { 
+        opacity: 0.6; 
+        transform: translateY(-5px) translateX(1px); 
+      }
+      75% {
+        transform: translateY(-2px) translateX(-1px);
+      }
+    }
+
+    @keyframes steamWave3 {
+      0%, 100% { 
+        opacity: 0.25; 
+        transform: translateY(0) translateX(0); 
+      }
+      25% {
+        transform: translateY(-1px) translateX(-1px);
+      }
+      50% { 
+        opacity: 0.6; 
+        transform: translateY(-3px) translateX(2px); 
+      }
+      75% {
+        transform: translateY(-2px) translateX(-2px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cozy-background"></div>
+  <div class="warm-overlay"></div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="header-top">
+          <h1 class="name">james cai</h1>
+        </div>
+        <div class="header-bottom">
+          <div class="tabs">
+            <button class="tab active" data-tab="about">about</button>
+            <button class="tab" data-tab="projects">projects</button>
+            <button class="tab" data-tab="contact">contact</button>
+          </div>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/jam-cai" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+              <svg fill="currentColor" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg>
+            </a>
+            <a href="https://github.com/Jam-Cai" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+              <svg fill="currentColor" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg>
+            </a>
+            <a href="https://jamescai.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Website">
+              <svg fill="currentColor" viewBox="0 0 512 512"><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.6 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.4 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z"/></svg>
+            </a>
+            <a href="mailto:jamescaicjm@gmail.com" class="social-link" aria-label="Email">
+              <svg fill="currentColor" viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>
+            </a>
+            <label class="theme-switch" aria-label="Toggle twilight mode">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider">
+                <span class="icon sun">☀️</span>
+                <span class="icon moon">🌙</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="tab-content active" id="about">
+          <div class="section">
+            <p class="section-title">about me</p>
+            <div class="greentext">
+              <div class="greentext-line"><span class="arrow">~</span><span>studying <strong>computer science</strong> at <strong>university of waterloo</strong></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>incoming swe intern at <strong>shopify</strong> this winter 2026 <span class="sparkle">✨</span></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>interested in systems, infra, and shipping products fast</span></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="section-title">things i like</p>
+            <div class="greentext">
+              <div class="greentext-line"><span class="arrow">~</span><span>late night coding sessions with lo-fi beats</span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>hackathons and building things that ship</span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>learning new tech and breaking things</span></div>
+            </div>
+          </div>
+
+          <p class="greentext" style="margin-top: 1.25rem;">
+            want to chat? <a href="/cdn-cgi/l/email-protection#bad0dbd7dfc9d9dbd3d9d0d7faddd7dbd3d694d9d5d7" class="text-link">shoot me an email</a> <span class="sparkle">☕</span>
+          </p>
+
+          <div class="section" style="margin-top: 1.75rem;">
+            <p class="section-title">where i've been</p>
+            <div class="greentext">
+              <div class="greentext-line">
+                <span class="arrow">~</span>
+                <span><strong>software engineer intern</strong> at <strong>ford motor company</strong><span class="date">— summer 2025</span></span>
+              </div>
+              <div class="greentext-line">
+                <span class="arrow">~</span>
+                <span><strong>software engineer intern</strong> at <strong>mysti.ai</strong><span class="date">— winter 2025</span></span>
+              </div>
+              <div class="greentext-line">
+                <span class="arrow">~</span>
+                <span><strong>software developer</strong> at <strong>uw orbital</strong><span class="date">— fall 2024</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="projects">
+          <div class="project-card">
+            <div class="project-title">
+              <a href="https://faang.vercel.app" target="_blank" rel="noopener noreferrer">🔤 FAANG Generator</a>
+              <span class="project-tag">30K+ visits</span>
+            </div>
+            <p class="project-desc">Turn any word into a tech company acronym with real logos. Went viral with 500K+ impressions!</p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">
+              <a href="https://meetcode.world" target="_blank" rel="noopener noreferrer">💻 MeetCode</a>
+              <span class="project-tag">React</span>
+              <span class="project-tag">Socket.io</span>
+              <span class="project-tag">Redis</span>
+            </div>
+            <p class="project-desc">Real-time AI mock interview platform with live code execution and voice feedback. 1K+ users!</p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">
+              <a href="https://github.com/Jam-Cai" target="_blank" rel="noopener noreferrer">🍽️ Replate</a>
+              <span class="project-tag">Next.js</span>
+              <span class="project-tag">Gemini</span>
+              <span class="project-tag">GCP</span>
+            </div>
+            <p class="project-desc">AI food sustainability platform — won Best AI Eco-Mobility Hack at GenAI Genesis 2025!</p>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">
+              <a href="https://github.com/Jam-Cai" target="_blank" rel="noopener noreferrer">💃 LeetDance</a>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">OpenCV</span>
+              <span class="project-tag">FastAPI</span>
+            </div>
+            <p class="project-desc">LeetCode but for TikTok dances — real-time pose feedback using MediaPipe and Gemini.</p>
+          </div>
+        </div>
+
+        <div class="tab-content" id="contact">
+          <div class="section">
+            <p class="section-title">say hello</p>
+            <div class="greentext">
+              <div class="greentext-line"><span class="arrow">~</span><span>email: <a href="mailto:jamescaicjm@gmail.com" class="text-link">jamescaicjm@gmail.com</a></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>website: <a href="https://jamescai.com" target="_blank" rel="noopener noreferrer" class="text-link">jamescai.com</a></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>linkedin: <a href="https://linkedin.com/in/jam-cai" target="_blank" rel="noopener noreferrer" class="text-link">/in/jam-cai</a></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>github: <a href="https://github.com/Jam-Cai" target="_blank" rel="noopener noreferrer" class="text-link">@Jam-Cai</a></span></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <p class="section-title">what i'm looking for</p>
+            <div class="greentext">
+              <div class="greentext-line"><span class="arrow">~</span><span>love working on infra, systems, and products that ship</span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>always down to chat about cool projects</span></div>
+            </div>
+          </div>
+
+          <p class="greentext" style="margin-top: 1.5rem;">
+            want to connect? <a href="mailto:jamescaicjm@gmail.com" class="text-link">let's chat</a> <span class="sparkle">🍵</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-illustration">
+    <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="45" cy="62" rx="32" ry="6" fill="#d4c4b0"/>
+      <ellipse cx="45" cy="60" rx="28" ry="5" fill="#e8ddd0"/>
+      <path d="M20 35 L22 55 Q23 58 45 58 Q67 58 68 55 L70 35 Z" fill="#c4704b"/>
+      <path d="M22 35 L24 53 Q25 56 45 56 Q65 56 66 53 L68 35 Z" fill="#d4825a"/>
+      <ellipse cx="45" cy="35" rx="25" ry="6" fill="#c4704b"/>
+      <ellipse cx="45" cy="35" rx="22" ry="5" fill="#e89b7b"/>
+      <ellipse cx="45" cy="36" rx="19" ry="4" fill="#5c4a3d"/>
+      <ellipse cx="43" cy="35.5" rx="6" ry="1.5" fill="#6b5544" opacity="0.5"/>
+      <path d="M70 40 Q82 40 82 48 Q82 56 70 54" stroke="#c4704b" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M70 42 Q78 42 78 48 Q78 54 70 52" stroke="#d4825a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M33 28 Q30 22 34 18 Q32 14 35 10" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-1"/>
+      <path d="M45 26 Q48 20 44 15 Q47 11 44 6" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-2"/>
+      <path d="M55 28 Q52 23 56 18 Q53 13 56 8" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-3"/>
+    </svg>
+  </div>
+
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        tabContents.forEach(content => {
+          content.classList.remove('active');
+          if (content.id === targetId) {
+            content.classList.add('active');
+          }
+        });
+      });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
     
-    <!-- SEO Meta Tags -->
-    <title>James Cai - cs student at uwaterloo</title>
-    <meta name="description" content="Experienced full stack developer specializing in React, TypeScript, and modern web technologies. Explore my projects and get in touch." />
-    <meta name="keywords" content="Full Stack Developer, React, TypeScript, JavaScript, Web Development, Portfolio" />
-    <meta name="author" content="James" />
+    // Check for saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="James - cs student at uwaterloo" />
-    <meta property="og:description" content="Experienced full stack developer specializing in React, TypeScript, and modern web technologies." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://yourwebsite.com" />
-    <meta property="og:image" content="/og-image.jpg" />
-    
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="James - Full Stack Developer Portfolio" />
-    <meta name="twitter:description" content="Experienced full stack developer specializing in React, TypeScript, and modern web technologies." />
-    <meta name="twitter:image" content="/og-image.jpg" />
-    
-    <!-- Performance Optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
-    
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#1a202c" />
-    
-    <!-- Preload critical resources -->
-    <link rel="modulepreload" href="/src/main.tsx" />
-  </head>
-  <body style="background:radial-gradient(ellipse at center, rgb(60, 70, 105), rgb(35, 45, 80) 30%, rgb(28, 37, 65) 60%, rgb(20, 28, 50) 85%, rgb(15, 20, 40)); min-height:100vh;">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', () => {
+      if (themeToggle.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
 </html>
