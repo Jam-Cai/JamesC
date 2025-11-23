@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>James Cai - Software Engineer & Builder</title>
   <meta name="description" content="CS student at UWaterloo. Incoming SWE intern at Shopify. Interested in ml, distributed systems, and shippig fast">
-  <link rel="icon" id="favicon-light" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><circle cx='50' cy='50' r='50' fill='%23fdf8f3'/><ellipse cx='50' cy='67' rx='32' ry='6' fill='%23d4c4b0'/><ellipse cx='50' cy='65' rx='28' ry='5' fill='%23e8ddd0'/><path d='M25 40 L27 60 Q28 63 50 63 Q72 63 73 60 L75 40 Z' fill='%23c4704b'/><path d='M27 40 L29 58 Q30 61 50 61 Q70 61 71 58 L73 40 Z' fill='%23d4825a'/><ellipse cx='50' cy='40' rx='25' ry='6' fill='%23c4704b'/><ellipse cx='50' cy='40' rx='22' ry='5' fill='%23e89b7b'/><ellipse cx='50' cy='41' rx='19' ry='4' fill='%235c4a3d'/><ellipse cx='48' cy='40.5' rx='6' ry='1.5' fill='%236b5544' opacity='0.5'/><path d='M75 45 Q87 45 87 53 Q87 61 75 59' stroke='%23c4704b' stroke-width='5' fill='none' stroke-linecap='round'/><path d='M75 47 Q83 47 83 53 Q83 59 75 57' stroke='%23d4825a' stroke-width='2' fill='none' stroke-linecap='round'/></svg>">
-  <link rel="icon" id="favicon-dark" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><circle cx='50' cy='50' r='50' fill='%231e2028'/><ellipse cx='50' cy='67' rx='32' ry='6' fill='%233a4050'/><ellipse cx='50' cy='65' rx='28' ry='5' fill='%23444a55'/><path d='M25 40 L27 60 Q28 63 50 63 Q72 63 73 60 L75 40 Z' fill='%236b8cce'/><path d='M27 40 L29 58 Q30 61 50 61 Q70 61 71 58 L73 40 Z' fill='%237a98d6'/><ellipse cx='50' cy='40' rx='25' ry='6' fill='%236b8cce'/><ellipse cx='50' cy='40' rx='22' ry='5' fill='%238aa8e0'/><ellipse cx='50' cy='41' rx='19' ry='4' fill='%235c4a3d'/><ellipse cx='48' cy='40.5' rx='6' ry='1.5' fill='%236b5544' opacity='0.5'/><path d='M75 45 Q87 45 87 53 Q87 61 75 59' stroke='%236b8cce' stroke-width='5' fill='none' stroke-linecap='round'/><path d='M75 47 Q83 47 83 53 Q83 59 75 57' stroke='%237a98d6' stroke-width='2' fill='none' stroke-linecap='round'/></svg>" disabled>
+  <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><circle cx='50' cy='50' r='50' fill='%23e8ddd0'/><ellipse cx='50' cy='67' rx='32' ry='6' fill='%23d4c4b0'/><ellipse cx='50' cy='65' rx='28' ry='5' fill='%23e8ddd0'/><path d='M25 40 L27 60 Q28 63 50 63 Q72 63 73 60 L75 40 Z' fill='%23c4704b'/><path d='M27 40 L29 58 Q30 61 50 61 Q70 61 71 58 L73 40 Z' fill='%23d4825a'/><ellipse cx='50' cy='40' rx='25' ry='6' fill='%23c4704b'/><ellipse cx='50' cy='40' rx='22' ry='5' fill='%23e89b7b'/><ellipse cx='50' cy='41' rx='19' ry='4' fill='%235c4a3d'/><ellipse cx='48' cy='40.5' rx='6' ry='1.5' fill='%236b5544' opacity='0.5'/><path d='M75 45 Q87 45 87 53 Q87 61 75 59' stroke='%23c4704b' stroke-width='5' fill='none' stroke-linecap='round'/><path d='M75 47 Q83 47 83 53 Q83 59 75 57' stroke='%23d4825a' stroke-width='2' fill='none' stroke-linecap='round'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -1079,17 +1078,12 @@
           themeToggle.checked = false;
         }
 
-        function updateFavicon(isDark) {
-          const lightFavicon = document.getElementById('favicon-light');
-          const darkFavicon = document.getElementById('favicon-dark');
+        const lightFaviconSvg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><circle cx='50' cy='50' r='50' fill='%23e8ddd0'/><ellipse cx='50' cy='67' rx='32' ry='6' fill='%23d4c4b0'/><ellipse cx='50' cy='65' rx='28' ry='5' fill='%23e8ddd0'/><path d='M25 40 L27 60 Q28 63 50 63 Q72 63 73 60 L75 40 Z' fill='%23c4704b'/><path d='M27 40 L29 58 Q30 61 50 61 Q70 61 71 58 L73 40 Z' fill='%23d4825a'/><ellipse cx='50' cy='40' rx='25' ry='6' fill='%23c4704b'/><ellipse cx='50' cy='40' rx='22' ry='5' fill='%23e89b7b'/><ellipse cx='50' cy='41' rx='19' ry='4' fill='%235c4a3d'/><ellipse cx='48' cy='40.5' rx='6' ry='1.5' fill='%236b5544' opacity='0.5'/><path d='M75 45 Q87 45 87 53 Q87 61 75 59' stroke='%23c4704b' stroke-width='5' fill='none' stroke-linecap='round'/><path d='M75 47 Q83 47 83 53 Q83 59 75 57' stroke='%23d4825a' stroke-width='2' fill='none' stroke-linecap='round'/></svg>";
+        const darkFaviconSvg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'><circle cx='50' cy='50' r='50' fill='%231e2028'/><ellipse cx='50' cy='67' rx='32' ry='6' fill='%233a4050'/><ellipse cx='50' cy='65' rx='28' ry='5' fill='%23444a55'/><path d='M25 40 L27 60 Q28 63 50 63 Q72 63 73 60 L75 40 Z' fill='%236b8cce'/><path d='M27 40 L29 58 Q30 61 50 61 Q70 61 71 58 L73 40 Z' fill='%237a98d6'/><ellipse cx='50' cy='40' rx='25' ry='6' fill='%236b8cce'/><ellipse cx='50' cy='40' rx='22' ry='5' fill='%238aa8e0'/><ellipse cx='50' cy='41' rx='19' ry='4' fill='%235c4a3d'/><ellipse cx='48' cy='40.5' rx='6' ry='1.5' fill='%236b5544' opacity='0.5'/><path d='M75 45 Q87 45 87 53 Q87 61 75 59' stroke='%236b8cce' stroke-width='5' fill='none' stroke-linecap='round'/><path d='M75 47 Q83 47 83 53 Q83 59 75 57' stroke='%237a98d6' stroke-width='2' fill='none' stroke-linecap='round'/></svg>";
 
-          if (isDark) {
-            lightFavicon.setAttribute('disabled', 'disabled');
-            darkFavicon.removeAttribute('disabled');
-          } else {
-            darkFavicon.setAttribute('disabled', 'disabled');
-            lightFavicon.removeAttribute('disabled');
-          }
+        function updateFavicon(isDark) {
+          const favicon = document.getElementById('favicon');
+          favicon.href = isDark ? darkFaviconSvg : lightFaviconSvg;
         }
 
         themeToggle.addEventListener('change', () => {
