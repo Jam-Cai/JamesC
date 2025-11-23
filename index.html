@@ -72,6 +72,39 @@
       cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23e89b7b' opacity='0.4'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23c4704b'/%3E%3C/svg%3E") 12 12, pointer;
     }
 
+    /* Custom cursor when hovering over interactive elements */
+    a:hover,
+    button:hover,
+    .social-link:hover,
+    .tab:hover,
+    .project-card:hover,
+    label.theme-switch:hover,
+    .text-link:hover,
+    .project-title a:hover {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23c4704b' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%23c4704b'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+
+    /* Dark mode cursor */
+    [data-theme="dark"] * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%236b8cce' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%236b8cce'/%3E%3C/svg%3E") 12 12, auto;
+    }
+
+    [data-theme="dark"] a,
+    [data-theme="dark"] button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%238aa8e0' opacity='0.4'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%236b8cce'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+
+    [data-theme="dark"] a:hover,
+    [data-theme="dark"] button:hover,
+    [data-theme="dark"] .social-link:hover,
+    [data-theme="dark"] .tab:hover,
+    [data-theme="dark"] .project-card:hover,
+    [data-theme="dark"] label.theme-switch:hover,
+    [data-theme="dark"] .text-link:hover,
+    [data-theme="dark"] .project-title a:hover {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%236b8cce' opacity='0.6'/%3E%3Ccircle cx='12' cy='12' r='4' fill='%236b8cce'/%3E%3C/svg%3E") 12 12, pointer;
+    }
+
     body {
       font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
@@ -81,9 +114,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      justify-content: flex-start;
+      padding: 4vh 1rem 2rem;
       position: relative;
+    }
+
+    @media (min-width: 640px) {
+      body {
+        padding: 12vh 1rem 2rem;
+      }
     }
 
     .cozy-background {
@@ -129,7 +168,7 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       box-shadow: 0 4px 20px var(--shadow-soft), 0 8px 40px var(--shadow-warm);
-      overflow: hidden;
+      overflow: visible;
       animation: cardEntrance 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -151,6 +190,7 @@
       flex-direction: column;
       gap: 1rem;
       background: linear-gradient(180deg, var(--bg-warm) 0%, var(--card-bg) 100%);
+      overflow: visible;
     }
 
     @media (min-width: 640px) {
@@ -168,10 +208,18 @@
 
     .header-bottom {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       width: 100%;
       gap: 1rem;
+      flex-direction: column-reverse;
+    }
+
+    @media (min-width: 640px) {
+      .header-bottom {
+        flex-direction: row;
+        align-items: center;
+      }
     }
 
     .header-left {
@@ -206,6 +254,13 @@
       border-radius: 12px;
       padding: 4px;
       gap: 2px;
+      width: fit-content;
+    }
+
+    @media (min-width: 640px) {
+      .tabs {
+        width: auto;
+      }
     }
 
     .tab {
@@ -259,6 +314,15 @@
     .social-links {
       display: flex;
       gap: 0.5rem;
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    @media (min-width: 640px) {
+      .social-links {
+        width: auto;
+        justify-content: flex-end;
+      }
     }
 
     .social-link {
@@ -273,6 +337,8 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .social-link:hover {
@@ -295,8 +361,8 @@
     /* Content */
     .content {
       padding: 1.5rem;
-      max-height: 420px;
-      overflow-y: auto;
+      max-height: none;
+      overflow-y: visible;
       scroll-behavior: smooth;
     }
 
@@ -409,10 +475,60 @@
       font-weight: 700;
     }
 
+    .greentext-line strong.company {
+      background: rgba(196, 112, 75, 0.10);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      color: var(--text-dark);
+      font-weight: 700;
+      box-shadow: 0 0 0 1px rgba(196, 112, 75, 0.0);
+    }
+
+    [data-theme="dark"] .greentext-line strong.company {
+      background: rgba(107, 140, 206, 0.1);
+      box-shadow: 0 0 0 1px rgba(107, 140, 206, 0.1);
+    }
+
     .greentext-line .date {
       color: var(--text-light);
       font-size: 0.72rem;
       margin-left: 0.5rem;
+    }
+
+    /* Project expandable details */
+    .project-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-details {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 1;
+      transition: max-height 0.3s ease;
+    }
+
+    .project-item:hover .project-details {
+      max-height: 200px;
+      opacity: 1;
+      transition: max-height 0.6s ease;
+    }
+
+    .project-detail-line {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      padding: 0.15rem 0.4rem 0.15rem 1.8rem;
+      margin: 0 -0.4rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .project-detail-line .arrow {
+      color: var(--accent-soft);
+      flex-shrink: 0;
+      font-weight: 600;
     }
 
     /* Animated text links */
@@ -424,6 +540,7 @@
       background-size: 100% 1px;
       background-position: 0 100%;
       transition: all 0.3s ease;
+      display: inline-block;
     }
 
     .text-link:hover {
@@ -439,6 +556,8 @@
       margin-bottom: 0.85rem;
       background: var(--bg-warm);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .project-card:hover {
@@ -675,19 +794,73 @@
     }
 
     @keyframes steamWave3 {
-      0%, 100% { 
-        opacity: 0.25; 
-        transform: translateY(0) translateX(0); 
+      0%, 100% {
+        opacity: 0.25;
+        transform: translateY(0) translateX(0);
       }
       25% {
         transform: translateY(-1px) translateX(-1px);
       }
-      50% { 
-        opacity: 0.6; 
-        transform: translateY(-3px) translateX(2px); 
+      50% {
+        opacity: 0.6;
+        transform: translateY(-3px) translateX(2px);
       }
       75% {
         transform: translateY(-2px) translateX(-2px);
+      }
+    }
+
+    /* Dark mode coffee cup colors */
+    [data-theme="dark"] .cup-body {
+      fill: #6b8cce;
+    }
+
+    [data-theme="dark"] .cup-body-light {
+      fill: #7a98d6;
+    }
+
+    [data-theme="dark"] .cup-rim {
+      fill: #6b8cce;
+    }
+
+    [data-theme="dark"] .cup-rim-light {
+      fill: #8aa8e0;
+    }
+
+    [data-theme="dark"] .cup-handle {
+      stroke: #6b8cce;
+    }
+
+    [data-theme="dark"] .cup-handle-light {
+      stroke: #7a98d6;
+    }
+
+    [data-theme="dark"] .cup-shadow-outer {
+      fill: #3a4050;
+    }
+
+    [data-theme="dark"] .cup-shadow-inner {
+      fill: #444a55;
+    }
+
+    /* Ripple effect */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(196, 112, 75, 0.4);
+      transform: scale(0);
+      animation: rippleEffect 0.6s ease-out;
+      pointer-events: none;
+    }
+
+    [data-theme="dark"] .ripple {
+      background: rgba(107, 140, 206, 0.4);
+    }
+
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
       }
     }
   </style>
@@ -737,8 +910,8 @@
           <div class="section">
             <p class="section-title">about me</p>
             <div class="greentext">
-              <div class="greentext-line"><span class="arrow">~</span><span>studying <strong>computer science</strong> at <strong>university of waterloo</strong></span></div>
-              <div class="greentext-line"><span class="arrow">~</span><span>incoming swe intern at <strong>shopify</strong> this winter 2026 <span class="sparkle">✨</span></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>studying <strong>computer science</strong> at <strong class="company">university of waterloo</strong></span></div>
+              <div class="greentext-line"><span class="arrow">~</span><span>incoming swe intern at <strong class="company">shopify</strong> this winter 2026 <span class="sparkle">✨</span></span></div>
               <div class="greentext-line"><span class="arrow">~</span><span>interested in ml, distributed systems, and shipping fast</span></div>
             </div>
           </div>
@@ -761,53 +934,67 @@
             <div class="greentext">
               <div class="greentext-line">
                 <span class="arrow">~</span>
-                <span><strong>swe intern</strong> at <strong>ford motor company</strong><span class="date">— summer 2025</span></span>
+                <span><strong>swe intern</strong> at <strong class="company">ford motor company</strong><span class="date">— summer 2025</span></span>
               </div>
               <div class="greentext-line">
                 <span class="arrow">~</span>
-                <span><strong>swe intern</strong> at <strong>mysti.ai</strong><span class="date">— winter 2025</span></span>
+                <span><strong>swe intern</strong> at <strong class="company">mysti.ai</strong><span class="date">— winter 2025</span></span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="tab-content" id="projects">
-          <div class="project-card">
-            <div class="project-title">
-              <a href="https://www.itsnotfaanganymore.lol/" target="_blank" rel="noopener noreferrer">🔤 It's not FAANG anymore</a>
-              <span class="project-tag">30K+ visits</span>
-            </div>
-            <p class="project-desc">Turn any word into a tech company acronym with real logos. Went viral with 500K+ impressions!</p>
-          </div>
+          <div class="section">
+            <div class="greentext">
+              <div class="project-item">
+                <div class="greentext-line">
+                  <span class="arrow">~</span>
+                  <span><a href="https://www.itsnotfaanganymore.lol/" target="_blank" rel="noopener noreferrer" class="text-link">🔤 it's not faang anymore</a> — turn any word into a tech company acronym with real logos</span>
+                </div>
+                <div class="project-details">
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>went viral with 500K+ impressions, 30K+ unique visitors</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>vanilla js, real-time logo fetching, responsive design</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>featured on twitter, linkedin, and various tech communities</span></div>
+                </div>
+              </div>
 
-          <div class="project-card">
-            <div class="project-title">
-              <a href="https://meetcode.world" target="_blank" rel="noopener noreferrer">💻 MeetCode</a>
-              <span class="project-tag">React</span>
-              <span class="project-tag">Socket.io</span>
-              <span class="project-tag">Redis</span>
-            </div>
-            <p class="project-desc">Real-time AI mock interview platform with live code execution and voice feedback. 1K+ users!</p>
-          </div>
+              <div class="project-item">
+                <div class="greentext-line">
+                  <span class="arrow">~</span>
+                  <span><a href="https://meetcode.world" target="_blank" rel="noopener noreferrer" class="text-link">💻 meetcode</a> — real-time ai mock interview platform</span>
+                </div>
+                <div class="project-details">
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>1K+ users, live code execution and ai voice feedback</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>react, socket.io, redis, openai api, docker</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>real-time collaboration, code compilation in 5+ languages</span></div>
+                </div>
+              </div>
 
-          <div class="project-card">
-            <div class="project-title">
-              <a href="https://github.com/Jam-Cai/replate" target="_blank" rel="noopener noreferrer">🍽️ Replate</a>
-              <span class="project-tag">Next.js</span>
-              <span class="project-tag">Gemini</span>
-              <span class="project-tag">GCP</span>
-            </div>
-            <p class="project-desc">AI food sustainability platform — won Best AI Eco-Mobility Hack at GenAI Genesis 2025!</p>
-          </div>
+              <div class="project-item">
+                <div class="greentext-line">
+                  <span class="arrow">~</span>
+                  <span><a href="https://github.com/Jam-Cai/replate" target="_blank" rel="noopener noreferrer" class="text-link">🍽️ replate</a> — ai food sustainability platform</span>
+                </div>
+                <div class="project-details">
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>won best ai eco-mobility hack at genai genesis 2025</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>next.js, gemini api, google cloud platform, firebase</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>smart food waste reduction through ai-powered matching</span></div>
+                </div>
+              </div>
 
-          <div class="project-card">
-            <div class="project-title">
-              <a href="https://github.com/Jam-Cai/leetdance" target="_blank" rel="noopener noreferrer">💃 LeetDance</a>
-              <span class="project-tag">Python</span>
-              <span class="project-tag">OpenCV</span>
-              <span class="project-tag">FastAPI</span>
+              <div class="project-item">
+                <div class="greentext-line">
+                  <span class="arrow">~</span>
+                  <span><a href="https://github.com/Jam-Cai/leetdance" target="_blank" rel="noopener noreferrer" class="text-link">💃 leetdance</a> — leetcode but for tiktok dances</span>
+                </div>
+                <div class="project-details">
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>real-time pose feedback using mediapipe and gemini</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>python, opencv, fastapi, pose estimation ml models</span></div>
+                  <div class="project-detail-line"><span class="arrow">↳</span><span>gamified learning with accuracy scoring and leaderboards</span></div>
+                </div>
+              </div>
             </div>
-            <p class="project-desc">LeetCode but for TikTok dances — real-time pose feedback using MediaPipe and Gemini.</p>
           </div>
         </div>
 
@@ -840,16 +1027,16 @@
 
   <div class="footer-illustration">
     <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="45" cy="62" rx="32" ry="6" fill="#d4c4b0"/>
-      <ellipse cx="45" cy="60" rx="28" ry="5" fill="#e8ddd0"/>
-      <path d="M20 35 L22 55 Q23 58 45 58 Q67 58 68 55 L70 35 Z" fill="#c4704b"/>
-      <path d="M22 35 L24 53 Q25 56 45 56 Q65 56 66 53 L68 35 Z" fill="#d4825a"/>
-      <ellipse cx="45" cy="35" rx="25" ry="6" fill="#c4704b"/>
-      <ellipse cx="45" cy="35" rx="22" ry="5" fill="#e89b7b"/>
-      <ellipse cx="45" cy="36" rx="19" ry="4" fill="#5c4a3d"/>
-      <ellipse cx="43" cy="35.5" rx="6" ry="1.5" fill="#6b5544" opacity="0.5"/>
-      <path d="M70 40 Q82 40 82 48 Q82 56 70 54" stroke="#c4704b" stroke-width="5" fill="none" stroke-linecap="round"/>
-      <path d="M70 42 Q78 42 78 48 Q78 54 70 52" stroke="#d4825a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="45" cy="62" rx="32" ry="6" fill="#d4c4b0" class="cup-shadow-outer"/>
+      <ellipse cx="45" cy="60" rx="28" ry="5" fill="#e8ddd0" class="cup-shadow-inner"/>
+      <path d="M20 35 L22 55 Q23 58 45 58 Q67 58 68 55 L70 35 Z" fill="#c4704b" class="cup-body"/>
+      <path d="M22 35 L24 53 Q25 56 45 56 Q65 56 66 53 L68 35 Z" fill="#d4825a" class="cup-body-light"/>
+      <ellipse cx="45" cy="35" rx="25" ry="6" fill="#c4704b" class="cup-rim"/>
+      <ellipse cx="45" cy="35" rx="22" ry="5" fill="#e89b7b" class="cup-rim-light"/>
+      <ellipse cx="45" cy="36" rx="19" ry="4" fill="#5c4a3d" class="cup-coffee"/>
+      <ellipse cx="43" cy="35.5" rx="6" ry="1.5" fill="#6b5544" opacity="0.5" class="cup-shine"/>
+      <path d="M70 40 Q82 40 82 48 Q82 56 70 54" stroke="#c4704b" stroke-width="5" fill="none" stroke-linecap="round" class="cup-handle"/>
+      <path d="M70 42 Q78 42 78 48 Q78 54 70 52" stroke="#d4825a" stroke-width="2" fill="none" stroke-linecap="round" class="cup-handle-light"/>
       <path d="M33 28 Q30 22 34 18 Q32 14 35 10" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-1"/>
       <path d="M45 26 Q48 20 44 15 Q47 11 44 6" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-2"/>
       <path d="M55 28 Q52 23 56 18 Q53 13 56 8" stroke="#d4c4b0" stroke-width="2" fill="none" stroke-linecap="round" class="steam steam-3"/>
@@ -898,6 +1085,40 @@
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
           }
+        });
+
+        // Ripple effect
+        function createRipple(event) {
+          const element = event.currentTarget;
+
+          // Don't create ripple on theme toggle
+          if (element.classList.contains('theme-switch') || element.closest('.theme-switch')) {
+            return;
+          }
+
+          const ripple = document.createElement('span');
+          ripple.classList.add('ripple');
+
+          const rect = element.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = event.clientX - rect.left - size / 2;
+          const y = event.clientY - rect.top - size / 2;
+
+          ripple.style.width = ripple.style.height = `${size}px`;
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+
+          element.style.position = 'relative';
+          element.style.overflow = 'hidden';
+          element.appendChild(ripple);
+
+          setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Add ripple to interactive elements
+        const rippleElements = document.querySelectorAll('a, button, .social-link, .tab, .project-card, .text-link');
+        rippleElements.forEach(element => {
+          element.addEventListener('click', createRipple);
         });
       </script>
     </body>
